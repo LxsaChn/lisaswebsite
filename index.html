@@ -13,6 +13,35 @@
             <strong>Email:</strong> lycheen915@gmail.com |
             <a href="https://github.com/LxsaChn">Github</a>
         </p>
+
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+            <label>Name:</label><br>
+            <input type="text" name="name" required><br><br>
+
+            <label>Email:</label><br>
+            <input type="email" name="email" required><br><br>
+
+            <label>Message:</label><br>
+            <textarea name="message" rows="5" required></textarea><br><br>
+            
+            <button type="submit">Send</button>
+        </form>
     </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const formData = Object.fromEntries(new FormData(e.target).entries());
+
+            const res = await fetch('backend website', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            alert(await res.text());
+        });
+    </script>
 </body>
 </html>
