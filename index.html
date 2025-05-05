@@ -24,11 +24,34 @@
       </div>
     </header>
 
-    <div id="weather" class="weather-widget">
-      <i id="weather-icon" class="fas fa-cloud-sun"></i>
-      <span id="weather-temp">Loading...</span>
-    </div>
+    <section class="about-me">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <img src="lisa.jpeg" alt="Lisa's Photo" class="profile-pic">
+        <p>
+          Hi! I'm Lisa, a passionate developer who loves creating clean, user-friendly web experiences. 
+          I enjoy working with JavaScript, building cool things, and occasionally featuring adoptable cats!
+        </p>
+      </div>
+    </section>
+
+    <section class="info-widgets">
+      <div class="weather-widget">
+        <h2>🌤️ Current Weather in Vancouver</h2>
+        <div class="weather-content">
+          <img id="weather-icon" alt="Weather icon" src="" style="width: 48px; height: 48px;" />
+          <span id="weather-temp">Loading...</span>
+        </div>
+        <p id="weather-description" class="weather-description"></p>
+      </div>
     
+      <div class="cat-widget">
+        <h2>🐾 Featured Adoptable Cat</h2>
+        <div id="random-cat" class="cat-content">
+          <p>Fetching a cat in need of love...</p>
+        </div>
+      </div>
+    </section>
 
     <section>
       <h2>Get In Touch</h2>
@@ -53,6 +76,7 @@
         </button>
       </form>
     </section>
+    
   </div>
 
   <script>
@@ -87,26 +111,49 @@
 
 <script>
   async function loadWeather() {
-    const apiKey = 'b8dc0f242d8dac9da3ded4f32af0d54c'; // Replace with your OpenWeatherMap API key
-    const city = 'Vancouver';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  const apiKey = 'b8dc0f242d8dac9da3ded4f32af0d54c';
+  const city = 'Vancouver';
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      const temp = Math.round(data.main.temp);
-      const iconCode = data.weather[0].icon;
-      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const temp = Math.round(data.main.temp);
+    const iconCode = data.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    const description = data.weather[0].description;
 
-      document.getElementById('weather-temp').textContent = `${temp}°C`;
-      document.getElementById('weather-icon').outerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
-    } catch (err) {
-      document.getElementById('weather-temp').textContent = 'Weather unavailable';
-    }
+    document.getElementById('weather-temp').textContent = `${temp}°C`;
+    document.getElementById('weather-icon').src = iconUrl;
+    document.getElementById('weather-icon').alt = description;
+    document.getElementById('weather-description').textContent = description.charAt(0).toUpperCase() + description.slice(1);
+  } catch (err) {
+    document.getElementById('weather-temp').textContent = 'Weather unavailable';
+    document.getElementById('weather-description').textContent = '';
   }
+}
 
   loadWeather();
 </script>
+
+<script>
+  async function loadCat() {
+    try {
+      const res = await fetch('/cat');
+      const cat = await res.json();
+      document.getElementById('random-cat').innerHTML = `
+        <a href="${cat.url}" target="_blank">
+          <img src="${cat.photo}" alt="${cat.name}" style="width:200px; border-radius:8px;">
+          <p>Meet <strong>${cat.name}</strong></p>
+        </a>
+      `;
+    } catch (err) {
+      document.getElementById('random-cat').textContent = 'Could not load a cat.';
+    }
+  }
+  loadCat();
+</script>
+
 
 </body>
 </html>
