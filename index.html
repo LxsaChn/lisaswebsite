@@ -1,47 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Lisa's World</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lisa's Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>Lisa</h1>
-        <p>
-            <strong>Email:</strong> lycheen915@gmail.com |
-            <a href="https://github.com/LxsaChn">Github</a>
-        </p>
+  <div class="container">
+    <header>
+      <h1>Welcome, This is Lisa.</h1>
+      <div class="contact-links">
+        <a href="mailto:lycheen915@gmail.com">
+          <i class="fas fa-envelope"></i> lycheen915@gmail.com
+        </a>
+        <a href="https://github.com/LxsaChn" target="_blank">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/lisac777" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      </div>
+    </header>
 
-        <h2>Contact Me</h2>
-        <form id="contact-form">
-            <label>Name:</label><br>
-            <input type="text" name="name" required><br><br>
-
-            <label>Email:</label><br>
-            <input type="email" name="email" required><br><br>
-
-            <label>Message:</label><br>
-            <textarea name="message" rows="5" required></textarea><br><br>
-            
-            <button type="submit">Send</button>
-        </form>
+    <div id="weather" class="weather-widget">
+      <i id="weather-icon" class="fas fa-cloud-sun"></i>
+      <span id="weather-temp">Loading...</span>
     </div>
+    
 
-    <script>
+    <section>
+      <h2>Get In Touch</h2>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Your message here..."></textarea>
+        </div>
+        
+        <button type="submit">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <script>
         document.getElementById('contact-form').addEventListener('submit', async e => {
             e.preventDefault();
-            const formData = Object.fromEntries(new FormData(e.target).entries());
+            const submitBtn = e.target.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-            const res = await fetch('backend website', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            alert(await res.text());
+            try {
+                const formData = Object.fromEntries(new FormData(e.target).entries());
+                const res = await fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (res.ok) {
+                    alert('Message sent successfully!');
+                    e.target.reset();
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                alert('Error sending message. Please try again later.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            }
         });
     </script>
+
+<script>
+  async function loadWeather() {
+    const apiKey = 'b8dc0f242d8dac9da3ded4f32af0d54c'; // Replace with your OpenWeatherMap API key
+    const city = 'Vancouver';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const temp = Math.round(data.main.temp);
+      const iconCode = data.weather[0].icon;
+      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+
+      document.getElementById('weather-temp').textContent = `${temp}°C`;
+      document.getElementById('weather-icon').outerHTML = `<img src="${iconUrl}" alt="Weather icon">`;
+    } catch (err) {
+      document.getElementById('weather-temp').textContent = 'Weather unavailable';
+    }
+  }
+
+  loadWeather();
+</script>
+
 </body>
 </html>
