@@ -1,21 +1,122 @@
 body {
-    font-family: Arial; 
-    margin: 2rem; 
-    background: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 2rem; /* Reduced body padding */
+  background: #f8f9fa;
 }
 
 .container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 2.5rem; /* Reduced container padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-h1, h2 {
-    color: #333;
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers everything horizontally */
+  text-align: center;
+  margin-bottom: 2rem; /* Reduced spacing */
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
 }
 
-.project {
-    margin-bottom: 1rem;
+h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: 2rem;
+  color: #333;
+  width: 100%;
 }
+
+.contact-links {
+  display: flex;
+  justify-content: center; /* Centers the links container */
+  gap: 2rem; /* Slightly narrower gap */
+  margin-top: 0.5rem;
+  width: 100%;
+  flex-wrap: wrap; /* Wraps on small screens */
+}
+
+.contact-links a {
+  display: inline-flex; /* Better for centering */
+  align-items: center;
+  gap: 0.5rem; /* Slightly smaller gap */
+  color: #4361ee;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.25rem 0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+form {
+  margin-top: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2rem; /* Reduced spacing */
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: #333;
+  font-size: 1rem;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.85rem; /* Smaller inputs */
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 140px; /* Shorter message box */
+  line-height: 1.5;
+}
+
+button {
+  background: #4361ee;
+  color: white;
+  border: none;
+  padding: 0.9rem 2rem; /* Slightly smaller button */
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #3a0ca3;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .container {
+      padding: 2rem;
+  }
+  .form-group {
+      margin-bottom: 1.5rem;
+  }
+}
+
+.weather-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: #333;
+}
+.weather-widget i {
+  font-size: 1.5rem;
+}
+
