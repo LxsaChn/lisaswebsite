@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 2rem; /* Reduced body padding */
   background: #f8f9fa;
+  padding-left: 200px; 
 }
 
 .container {
@@ -31,6 +32,7 @@ h1 {
   color: #333;
   width: 100%;
 }
+
 
 .contact-links {
   display: flex;
@@ -99,6 +101,17 @@ button:hover {
   transform: translateY(-2px);
 }
 
+#contact-form input,
+#contact-form textarea {
+  box-sizing: border-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+
 @media (max-width: 768px) {
   .container {
       padding: 2rem;
@@ -122,8 +135,19 @@ button:hover {
   box-sizing: border-box;
 }
 
+@media (max-width: 768px) {
+  .weather-widget,
+  .cat-widget {
+    margin: 1rem auto;
+  }
+
+  .weather-widget + .cat-widget {
+    margin-top: 0.5rem;
+  }
+}
+
+
 .weather-widget {
-  margin: 2rem auto;
   padding: 1.2rem;
   background: #f3faff;
   border: 1px solid #d4eaff;
@@ -182,7 +206,6 @@ button:hover {
 }
 
 .cat-widget {
-  margin: 2rem auto;
   text-align: center;
   padding: 1.5rem;
   background: #f0f4ff;
@@ -208,6 +231,178 @@ button:hover {
   font-size: 1rem;
   color: #333;
 }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 180px;
+  background-color: #f1f3ff;
+  padding-top: 2rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+}
+
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  display: block;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #e0e7ff;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1rem 0;
+    box-shadow: none;
+    border-bottom: 1px solid #e0e7ff;
+  }
+  
+  .sidebar nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .sidebar nav ul li {
+    margin: 0;
+  }
+  
+  .container {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-widgets .weather-widget,
+  .info-widgets .cat-widget {
+    flex: 1 1 100%;
+  }
+  
+  .contact-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
+
+.projects {
+  margin: 2rem 0;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.video-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.video-item h3 {
+  margin: 0.5rem 0 0;
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .video-item {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-item {
+    padding: 0.5rem;
+  }
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.course-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.course-item h3 {
+  margin: 0.5rem 0 0;
+  font-size: 1.1rem;
+  color: #333;
+  text-align: center;
+}
+
+.course-item p {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+
+
 
 
 
